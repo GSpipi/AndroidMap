@@ -21,7 +21,7 @@ import java.util.Map;
 public class MainPresenter extends BasePresent implements MainContract.Presenter {
     private MainContract.View view;
     private Context context;
-    private Subscription subscription;
+
 
     public MainPresenter(Context context, MainContract.View view) {
         this.view = view;
@@ -54,11 +54,6 @@ public class MainPresenter extends BasePresent implements MainContract.Presenter
         if (isDefaultGetData || isPull)
             map.put("pn", "0");
         RequestModel.getInstance().queryCooks(map, new CustomSubscriber<BaseResponsePageBean<CookBean>>(context) {
-            @Override
-            public void onSubscribe(Subscription s) {
-                super.onSubscribe(s);
-                subscription = s;
-            }
 
             @Override
             public void onNext(BaseResponsePageBean<CookBean> bean) {
@@ -90,7 +85,5 @@ public class MainPresenter extends BasePresent implements MainContract.Presenter
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (subscription != null)
-            subscription.cancel();
     }
 }

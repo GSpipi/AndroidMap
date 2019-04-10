@@ -1,14 +1,12 @@
 package com.gaoshuai.androidarchitecturemvp.http;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -28,14 +26,12 @@ public class RetrofitWrapper {
 
         // 添加拦截器  获取header 内容
 
-        // 创建 gson对象
-        Gson gson = new GsonBuilder().setLenient().create();
         // 构建 retrofit
         retrofit = new Retrofit.Builder()
                 .client(okHttpClientBuilder.build())
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
